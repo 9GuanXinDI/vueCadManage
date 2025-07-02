@@ -1,0 +1,36 @@
+.width200 {
+    width: 200px!important;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.flex-start {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.border-radius-2 {
+    border-radius: 2px;
+}
+
+.margin-right-20 {
+    margin-right: 20px!important;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 8px;
+}

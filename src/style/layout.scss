@@ -1,0 +1,112 @@
+@import "./element.scss";
+@import "./mixins.scss";
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 禁止鼠标选中文本 */
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.clearfix {
+
+    &:before,
+    &:after {
+        display: table;
+        content: " ";
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-start {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-around {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.text-btn {
+    margin-right: 5px;
+    color: #4ca4fe;
+    cursor: pointer;
+}
+
+.delete-btn {
+    color: #f95757;
+}
+
+.pagination-box {
+    float: right;
+    padding: vw(20);
+}
+
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.mr-1{
+    margin-right: vw(10);
+}
+.mr-2{
+    margin-right: vw(20);
+}
+.mb-2{
+    margin-bottom: vw(20);
+}
+.ml-1{
+    margin-left: vw(10);
+}
