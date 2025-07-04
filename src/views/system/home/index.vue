@@ -165,7 +165,6 @@ const scokenDetailInfo = (data) => {
   // 监听消息
   socketTwo.onmessage = (event) => {
     try {
-      debugger;
       const data = JSON.parse(event.data);
       // scanContent.value = data;
       scanBoxRef.value&&scanBoxRef.value.getSocketData(data);
@@ -205,6 +204,7 @@ onMounted(() => {
   socket.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
+      scanBoxRef.value&&scanBoxRef.value.getIndexName(data.deviceNo);
       // deviceInfo.value = data;
       // changeIndex(list.value.find((item) => item.idOne === data.deviceNo || item.idTwo === data.deviceNo));
       scokenDetailInfo(data); // 创建第二个 WebSocket 连接
@@ -335,7 +335,7 @@ onUnmounted(() => {
 }
 </style>
 <style>
-:where(.css-dev-only-do-not-override-1pqtzce).ant-form-item .ant-form-item-label > label {
+.ant-form-item .ant-form-item-label > label {
   color: #fff !important;
 }
 .ant-form-item {

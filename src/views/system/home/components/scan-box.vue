@@ -77,6 +77,7 @@
                 <div class="check-box">
                   <a-checkbox v-model:checked="form.isFullConsumption">是否全部消耗</a-checkbox>
                 </div>
+                <div class="expirationate-box">{{ form.expirationate }}</div>
                 <div class="status-box">
                   <a-button type="primary">启用</a-button>
                   <!-- <a-button type="primary" disabled>启用</a-button> -->
@@ -137,6 +138,7 @@
                 <div class="check-box">
                   <a-checkbox v-model:checked="form.isAllConsumption">是否全部消耗</a-checkbox>
                 </div>
+                <div class="expirationate-box">{{ formTwo.expirationate }}</div>
                 <div class="status-box">
                   <!-- <a-button type="primary">启用</a-button> -->
                   <a-button type="primary" disabled>启用</a-button>
@@ -308,6 +310,7 @@ let form = ref({
   unloadingSystemQty: '',
   consumptionQty: '',
   isFullConsumption: false,
+  expirationate:''
 });
 let formTwo = ref({
   materialBarcode: '',
@@ -319,7 +322,15 @@ let formTwo = ref({
   consumptionQty: '',
   unloadingSystemQty: '',
   isAllConsumption: false,
+  expirationate:''
 });
+function getIndexName(deviceNo){
+  list.value.forEach((item) => {
+    if(item.idOne == deviceNo||item.idTwo == deviceNo){
+      indexName.value = item.name;
+    }
+  });
+}
 /**
  * @name 获取scoket数据
  */
@@ -338,6 +349,7 @@ function getSocketData(newVal) {
         unloadingSystemQty: '',
         consumptionQty: '',
         isFullConsumption: false,
+        expirationate:newVal.expirationate||''
       };
       formTwo.value = {
         materialBarcode: '',
@@ -349,6 +361,7 @@ function getSocketData(newVal) {
         consumptionQty: '',
         unloadingSystemQty: '',
         isAllConsumption: false,
+        expirationate:''
       };
     }
     if (item.idTwo == newVal.positionCode) {
@@ -363,6 +376,7 @@ function getSocketData(newVal) {
         consumptionQty: '',
         unloadingSystemQty: '',
         isAllConsumption: false,
+        expirationate:''
       };
       formTwo.value = {
         materialBarcode: newVal.materialBarcode,
@@ -374,10 +388,12 @@ function getSocketData(newVal) {
         unloadingSystemQty: '',
         consumptionQty: '',
         isFullConsumption: false,
+        expirationate:newVal.expirationate||''
       };
     }
   });
 }
+
 /**
  * @name 切换tab
  */
@@ -404,6 +420,7 @@ const changeIndex = async (item) => {
       unloadingSystemQty: '',
       consumptionQty: '',
       isFullConsumption: false,
+      expirationate:''
     };
   }
   let dataTwo = await queryFeedingMaterial(item.idTwo);
@@ -422,6 +439,7 @@ const changeIndex = async (item) => {
       consumptionQty: '',
       unloadingSystemQty: '',
       isAllConsumption: false,
+      expirationate:''
     };
   }
 };
@@ -468,6 +486,7 @@ const feedingMaterialUp = async (form, type) => {
 };
 defineExpose({
   getSocketData,
+  getIndexName
 });
 onMounted(() => {
   changeIndex(list.value[0]);
@@ -548,7 +567,7 @@ onMounted(() => {
         }
         .check-box {
           position: absolute;
-          bottom: vw(30);
+          bottom: vw(40);
           right: vw(20);
           color: #fff;
           font-size: vw(16);
@@ -685,12 +704,14 @@ onMounted(() => {
 .mr-1 {
   margin-right: vw(10);
 }
+.expirationate-box{
+  position: absolute;
+  bottom: vw(10);
+  right: vw(20);
+  color: red;
+  font-size: vw(16);
+}
 </style>
 <style>
-:where(.css-dev-only-do-not-override-1pqtzce).ant-form-item .ant-form-item-label > label {
-  color: #fff !important;
-}
-.ant-form-item {
-  margin-bottom: 6px !important;
-}
+
 </style>
