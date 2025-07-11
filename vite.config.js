@@ -16,8 +16,8 @@ const pathResolve = (dir) => {
   return resolve(__dirname, '.', dir);
 };
 // http://36.137.53.24:8081
-const baseUrl = process.env.NODE_ENV === 'dev' ? 'http://116.196.87.183:8085' : 'http://116.196.87.183:8085'
-// const baseUrl = process.env.NODE_ENV === 'dev' ? 'http://192.168.0.91:8085' : 'http://192.168.0.91:8085'
+// const baseUrl = process.env.NODE_ENV === 'dev' ? 'http://116.196.87.183:8085' : 'http://116.196.87.183:8085'
+const baseUrl = process.env.NODE_ENV === 'dev' ? 'http://192.168.0.91:8085' : 'http://192.168.0.91:8085'
 
 export default {
   base: process.env.NODE_ENV === 'production' ? '/' : '/',

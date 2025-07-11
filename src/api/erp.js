@@ -21,4 +21,11 @@ export const erpApi = {
         return postRequest('/mes-material-controller/feedingMaterial', param);
     },
     
+     unloadAPI: (param) => {
+        return postRequest('/mes/unload', param);
+    },
+     queryLogAPI: (param) => {
+        return postRequest('/mes/log/query', param);
+    },
+    
 }

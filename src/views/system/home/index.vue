@@ -110,6 +110,7 @@ let list = ref([
 let scanBoxRef = ref(null);
 let socket = null;
 let socketTwo = null;
+let socketTree = null;
 const deviceInfo = ref({});
 let scanContent = ref({});
 
@@ -149,7 +150,7 @@ const scokenDetailInfo = (data) => {
     socketTwo = null;
   }
 
-  const wsUrlTwo = `ws://116.196.87.183:8085/sa-api/ws/data/${data.deviceNo}`;
+  const wsUrlTwo = `ws://192.168.0.91:8085/sa-api/ws/data/${data.deviceNo}`;
   socketTwo = new WebSocket(wsUrlTwo);
 
   // 监听连接打开
@@ -188,18 +189,39 @@ const scokenDetailInfo = (data) => {
 onMounted(() => {
   containerStyle.value.height = window.innerHeight + 'px';
   getDate();
-  const wsUrl = `ws://116.196.87.183:8085/sa-api/ws/device`;
+  const wsUrl = `ws://192.168.0.91:8085/sa-api/ws/device`;
+  const wsUrlTree = `ws://192.168.0.91:8085/sa-api/ws/real/data`;
   socket = new WebSocket(wsUrl);
+  socketTree = new WebSocket(wsUrlTree);
 
   // 监听连接打开
   socket.onopen = () => {
     console.log('WebSocket连接已建立');
   };
-  setInterval(function () {
-    if (socket.readyState === WebSocket.OPEN) {
-      socket.send('ping');
-    }
-  }, 30000); // 每 30 秒发送一次心跳
+  socketTree.onopen = () => {
+    console.log('WebSocketTree连接已建立');
+  };
+    setInterval(function () {
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.send('ping');
+      }
+    }, 30000); // 每 30 秒发送一次心跳
+    
+    setInterval(function () {
+      if (socketTree.readyState === WebSocket.OPEN) {
+        socketTree.send('ping');
+      }
+    }, 50); // 每 50 毫秒发送一次心跳
+
+    socketTree.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        scanBoxRef.value&&scanBoxRef.value.getButtonStatus(data.msg);
+        console.log('socketTree连接的数据:', data);
+      } catch (error) {
+        console.error('解析数据失败:', error);
+      }
+    };
   // 监听消息
   socket.onmessage = (event) => {
     try {
@@ -258,6 +280,7 @@ onUnmounted(() => {
       display: inline-block;
       top: vw(75);
       left: vw(20);
+      cursor: pointer;
     }
     .active {
       color: #fff;
@@ -333,12 +356,22 @@ onUnmounted(() => {
 .mr-1 {
   margin-right: vw(10);
 }
+:deep(.ant-form-item-label > label) {
+  color: #fff !important;
+}
 </style>
 <style>
-.ant-form-item .ant-form-item-label > label {
+:where(.css-1pqtzce).ant-form-item .ant-form-item-label >label {
+  color: #fff !important;
+}
+:where(.css-1pqtzce).ant-form label {
   color: #fff !important;
 }
 .ant-form-item {
   margin-bottom: 6px !important;
+}
+/* 增加选择器特异性 */
+body .ant-form-item .ant-form-item-label > label {
+  color: #fff !important;
 }
 </style>
